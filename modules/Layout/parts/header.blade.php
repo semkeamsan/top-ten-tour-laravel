@@ -1,3 +1,14 @@
+<style>
+    .u-header__navbar-brand-on-scroll img{
+        width: 60px;
+    }
+    @media (max-width: 1023px){
+        .bravo-logo img{
+            width: 60px;
+        }
+    }
+</style>
+
 
 <header id="header"
         class="@if(!empty($is_home) or !empty($header_transparent))
@@ -16,14 +27,14 @@
                         <a href="{{url(app_get_locale(false,'/'))}}" class="bravo-logo navbar-brand u-header__navbar-brand-default u-header__navbar-brand-center u-header__navbar-brand-text-white mr-0 mr-xl-5">
                             @if($logo_id = setting_item("logo_id"))
                                 <?php $logo = get_file_url($logo_id,'full') ?>
-                                <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                                <img class="rounded-circle shadow" src="{{$logo}}" alt="{{setting_item("site_title")}}">
                             @endif
                             <span class="u-header__navbar-brand-text">{{ setting_item_with_lang("logo_text") }}</span>
                         </a>
                         <a class="bravo-logo navbar-brand u-header__navbar-brand u-header__navbar-brand-center u-header__navbar-brand-on-scroll" href="{{url(app_get_locale(false,'/'))}}">
                             @if($logo_id = setting_item("logo_id_2"))
                                 <?php $logo = get_file_url($logo_id,'full') ?>
-                                <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                                <img class="rounded-circle" src="{{$logo}}" alt="{{setting_item("site_title")}}">
                             @endif
                             <span class="u-header__navbar-brand-text">{{ setting_item_with_lang("logo_text") }}</span>
                         </a>
