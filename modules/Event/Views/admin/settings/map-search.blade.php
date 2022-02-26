@@ -17,6 +17,7 @@
                         <div class="g-items">
                             @php
                             $event_map_search_fields = setting_item_array('event_map_search_fields');
+
                             $types = [
                                 'location'=>__("Location"),
                                 'attr'=>__("Attribute"),
@@ -33,14 +34,14 @@
                                             <select name="event_map_search_fields[{{$key}}][field]" class="custom-select">
                                                 <option value="">{{__("-- Select field type --")}}</option>
                                                 @foreach($types as $type=>$name)
-                                                    <option @if($item['field'] == $type) selected @endif value="{{$type}}">{{$name}}</option>
+                                                    <option @if(@$item['field'] == $type) selected @endif value="{{$type}}">{{$name}}</option>
                                                 @endforeach
                                             </select>
                                             <br>
                                             <select name="event_map_search_fields[{{$key}}][attr]" class="mt-2 custom-select">
                                                 <option value="">{{__("-- Select Attribute --")}}</option>
                                                 @foreach($attrs as $attr)
-                                                    <option @if($item['attr'] == $attr->id) selected @endif value="{{$attr->id}}">{{$attr->name}}</option>
+                                                    <option @if(@$item['attr'] == $attr->id) selected @endif value="{{$attr->id}}">{{$attr->name}}</option>
                                                 @endforeach
                                             </select>
 
