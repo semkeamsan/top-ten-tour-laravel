@@ -1,4 +1,4 @@
-@php $main_color = setting_item('style_main_color','#5191fa');
+@php $main_color = setting_item('style_main_color','#103e79');
 $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
 @endphp
 
