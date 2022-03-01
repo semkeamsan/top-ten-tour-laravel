@@ -893,7 +893,9 @@ class Car extends Bookable
         if (!empty($price_range = $request->query('price_range'))) {
             $pri_from = explode(";", $price_range)[0];
             $pri_to = explode(";", $price_range)[1];
-            $raw_sql_min_max = "( (IFNULL(bc_cars.sale_price,0) > 0 and bc_cars.sale_price >= ? ) OR (IFNULL(bc_cars.sale_price,0) <= 0 and bc_cars.price >= ? ) ) 
+            $pri_from = Currency::convertToMain($pri_from);
+            $pri_to = Currency::convertToMain($pri_to);
+            $raw_sql_min_max = "( (IFNULL(bc_cars.sale_price,0) > 0 and bc_cars.sale_price >= ? ) OR (IFNULL(bc_cars.sale_price,0) <= 0 and bc_cars.price >= ? ) )
                             AND ( (IFNULL(bc_cars.sale_price,0) > 0 and bc_cars.sale_price <= ? ) OR (IFNULL(bc_cars.sale_price,0) <= 0 and bc_cars.price <= ? ) )";
             $model_car->WhereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
         }

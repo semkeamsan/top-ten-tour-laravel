@@ -29,6 +29,7 @@
                     <?php
                     $price_min = $pri_from = floor(App\Currency::convertPrice($hotel_min_max_price[0]));
                     $price_max = $pri_to = ceil(App\Currency::convertPrice($hotel_min_max_price[1]));
+
                     if (!empty($price_range = Request::query('price_range'))) {
                         $pri_from = explode(";", $price_range)[0];
                         $pri_to = explode(";", $price_range)[1];

@@ -110,6 +110,12 @@ class Currency
     public static function convertPrice($price,$main_currency = false)
     {
         $exchange_rate = $main_currency ? 1 : static::getCurrent('rate',1,$main_currency);
+        $price *= $exchange_rate;
+        return (float)$price;
+    }
+    public static function convertToMain($price,$exchange_rate = null)
+    {
+        $exchange_rate = $exchange_rate?? static::getCurrent('rate',1);
         $price /= $exchange_rate;
         return (float)$price;
     }

@@ -845,6 +845,8 @@
             if (!empty($price_range = $request->query('price_range'))) {
                 $pri_from = explode(";", $price_range)[0];
                 $pri_to = explode(";", $price_range)[1];
+                $pri_from = Currency::convertToMain($pri_from);
+                $pri_to = Currency::convertToMain($pri_to);
                 $model_flight->where('min_price','<=',$pri_to)->where('min_price','>=',$pri_from);
 
             }else{
@@ -920,6 +922,8 @@
             if (!empty($price_range = $request->query('price_range'))) {
                 $pri_from = explode(";", $price_range)[0];
                 $pri_to = explode(";", $price_range)[1];
+                $pri_from = Currency::convertToMain($pri_from);
+                $pri_to = Currency::convertToMain($pri_to);
                 $raw_sql_min_max = "( (IFNULL(bc_flight.sale_price,0) > 0 and bc_flight.sale_price >= ? ) OR (IFNULL(bc_flight.sale_price,0) <= 0 and bc_flight.price >= ? ) )
                             AND ( (IFNULL(bc_flight.sale_price,0) > 0 and bc_flight.sale_price <= ? ) OR (IFNULL(bc_flight.sale_price,0) <= 0 and bc_flight.price <= ? ) )";
                 $model_Flight->WhereRaw($raw_sql_min_max, [$pri_from, $pri_from, $pri_to, $pri_to]);

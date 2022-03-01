@@ -538,7 +538,7 @@ class Tour extends Bookable
         if (strtotime($start_date) < strtotime(date('Y-m-d 00:00:00'))) {
             return $this->sendError(__("Your selected dates are not valid"));
         }
-        
+
         // Validate Date and Booking
         if(!$this->isAvailableInRanges($start_date)){
             return $this->sendError(__("This tour is not available at selected dates"));
@@ -1011,6 +1011,8 @@ class Tour extends Bookable
         if (!empty($price_range = $request->query('price_range'))) {
             $pri_from = explode(";", $price_range)[0];
             $pri_to = explode(";", $price_range)[1];
+            $pri_from = Currency::convertToMain($pri_from);
+            $pri_to = Currency::convertToMain($pri_to);
             $raw_sql_min_max = "( (IFNULL(bc_tours.sale_price,0) > 0 and bc_tours.sale_price >= ? ) OR (IFNULL(bc_tours.sale_price,0) <= 0 and bc_tours.price >= ?) )
 								AND ( (IFNULL(bc_tours.sale_price,0) > 0 and bc_tours.sale_price <= ? ) OR (IFNULL(bc_tours.sale_price,0) <= 0 and bc_tours.price <= ?) )";
             $model_Tour->WhereRaw($raw_sql_min_max, [

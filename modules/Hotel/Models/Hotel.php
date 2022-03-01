@@ -999,6 +999,8 @@ class Hotel extends Bookable
         if (!empty($price_range = $request->query('price_range'))) {
             $pri_from = explode(";", $price_range)[0];
             $pri_to = explode(";", $price_range)[1];
+            $pri_from = Currency::convertToMain($pri_from);
+            $pri_to = Currency::convertToMain($pri_to);
             $raw_sql_min_max = "(  bc_hotels.price >= ? )
                             AND (  bc_hotels.price <= ? )";
             $model_hotel->WhereRaw($raw_sql_min_max,[$pri_from,$pri_to]);

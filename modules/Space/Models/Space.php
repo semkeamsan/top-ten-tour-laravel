@@ -948,7 +948,9 @@ class Space extends Bookable
         if (!empty($price_range = $request->query('price_range'))) {
             $pri_from = explode(";", $price_range)[0];
             $pri_to = explode(";", $price_range)[1];
-            $raw_sql_min_max = "( (IFNULL(bc_spaces.sale_price,0) > 0 and bc_spaces.sale_price >= ? ) OR (IFNULL(bc_spaces.sale_price,0) <= 0 and bc_spaces.price >= ? ) ) 
+            $pri_from = Currency::convertToMain($pri_from);
+            $pri_to = Currency::convertToMain($pri_to);
+            $raw_sql_min_max = "( (IFNULL(bc_spaces.sale_price,0) > 0 and bc_spaces.sale_price >= ? ) OR (IFNULL(bc_spaces.sale_price,0) <= 0 and bc_spaces.price >= ? ) )
                             AND ( (IFNULL(bc_spaces.sale_price,0) > 0 and bc_spaces.sale_price <= ? ) OR (IFNULL(bc_spaces.sale_price,0) <= 0 and bc_spaces.price <= ? ) )";
             $model_space->WhereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
         }
