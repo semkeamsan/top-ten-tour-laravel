@@ -149,7 +149,7 @@ ol {
   box-shadow: none;
   padding: 0;
   font-size: 16px;
-  color: #5191FA;
+  color: #103e79;
   position: relative;
   left: -5px;
   height: 25px !important;
@@ -168,7 +168,7 @@ ol {
 
 .bravo_wrap .bravo_search_tour .bravo_form_search .bravo_form .render {
   font-size: 16px;
-  color: #5191FA;
+  color: #103e79;
   overflow: hidden;
   width: 100%;
   display: inline-block;
@@ -242,7 +242,7 @@ ol {
   width: 100%;
   margin-right: -15px;
   border-radius: 0px 5px 5px 0px;
-  background: #5191FA;
+  background: #103e79;
   border: none;
   text-transform: uppercase;
   font-weight: 500;
@@ -267,7 +267,7 @@ ol {
   content: "";
   width: 3px;
   height: 20px;
-  background: #5191FA;
+  background: #103e79;
   float: left;
   position: relative;
   top: -2px;
@@ -313,14 +313,14 @@ ol {
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .btn-more-item {
   font-size: 14px;
-  color: #5191FA;
+  color: #103e79;
   padding: 0;
   text-decoration: none;
 }
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .btn-apply-price-range {
   font-size: 14px;
-  color: #5191FA;
+  color: #103e79;
   margin-top: 20px;
   font-weight: 600;
   padding: 0;
@@ -332,23 +332,23 @@ ol {
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to,
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single {
   font-size: 11px;
-  background-color: #5191FA;
+  background-color: #103e79;
 }
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-bar {
   top: 25px;
   height: 12px;
-  background-color: #5191FA;
+  background-color: #103e79;
 }
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-handle > i:first-child {
-  background-color: #5191FA;
+  background-color: #103e79;
 }
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-from:before,
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to:before,
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single:before {
-  border-top-color: #5191FA;
+  border-top-color: #103e79;
 }
 
 .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item.open .item-title .fa {
@@ -549,17 +549,17 @@ ol {
 
 .bravo_wrap .bravo_search_tour .bravo-list-item .bravo-pagination ul li a.current,
 .bravo_wrap .bravo_search_tour .bravo-list-item .bravo-pagination ul li span.current {
-  border: 1px solid #5191FA !important;
+  border: 1px solid #103e79 !important;
   border-radius: 3px;
   background: transparent !important;
-  color: #5191FA !important;
+  color: #103e79 !important;
 }
 
 .bravo_wrap .bravo_search_tour .bravo-list-item .bravo-pagination ul li.active a,
 .bravo_wrap .bravo_search_tour .bravo-list-item .bravo-pagination ul li.active span {
-  border: 1px solid #5191FA !important;
+  border: 1px solid #103e79 !important;
   background: transparent !important;
-  color: #5191FA !important;
+  color: #103e79 !important;
 }
 
 .bravo_wrap .bravo_search_tour .bravo-list-item .bravo-pagination .count-string {
@@ -623,7 +623,7 @@ ol {
   top: 2px;
   width: 5px;
   height: 8px;
-  border: solid #5191FA;
+  border: solid #103e79;
   border-width: 0 2px 2px 0;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -792,7 +792,7 @@ ol {
 
 .bravo_wrap .bravo_detail_tour .bravo_content .g-overview ul li:before {
   content: "";
-  border: 1px solid #5191FA;
+  border: 1px solid #103e79;
   width: 8px;
   height: 8px;
   display: inline-block;
@@ -885,7 +885,7 @@ ol {
 
 .bravo_wrap .bravo_detail_tour .bravo_content .bravo_tour_book {
   border: 1px solid #D7DCE3;
-  border-top: 5px solid #5191FA;
+  border-top: 5px solid #103e79;
   border-radius: 0 0 4px 4px;
   background: #FFF;
   position: relative;
@@ -1001,7 +1001,7 @@ ol {
   width: 100%;
   font-size: 16px;
   padding: 12px 25px;
-  background: #5191FA;
+  background: #103e79;
   color: #FFF;
 }
 
@@ -1381,7 +1381,7 @@ ol {
 .modal .modal-content .modal-body .form-submit {
   height: 45px;
   width: 100%;
-  background: #5191FA;
+  background: #103e79;
   color: #FFF;
   text-transform: uppercase;
   font-size: 14px;

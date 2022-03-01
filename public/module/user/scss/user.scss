@@ -217,14 +217,14 @@
                     position: relative;
                     &.active,&:hover{
                         > a{
-                            color: #5191FA;
+                            color: #103e79;
                             i {
-                                color: #5191FA;
+                                color: #103e79;
                             }
                         }
                         &.has-children{
                             >i:after{
-                                color: #5191FA;
+                                color: #103e79;
                             }
                         }
                     }
@@ -926,8 +926,8 @@
                         }
                         &.active{
                             a {
-                                color: #5191FA;
-                                border-bottom: 3px solid #5191FA;
+                                color: #103e79;
+                                border-bottom: 3px solid #103e79;
                             }
                         }
                     }
@@ -956,7 +956,7 @@
                 padding: 2px 5px;
                 background: #f3f3f3;
                 border-color: #d0d0d0;
-                border-left: solid 3px #5191fa;
+                border-left: solid 3px #103e79;
                 a{
                     display: block;
                     font-size: 13px;
@@ -965,7 +965,7 @@
                     transition: all .3s;
                     min-width: 175px;
                     &:hover{
-                        color: #5191FA;
+                        color: #103e79;
                     }
                     i{
                         position: relative;

@@ -148,9 +148,9 @@
         padding: 0;
         position: relative; }
         .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active > a, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover > a {
-          color: #5191FA; }
+          color: #103e79; }
           .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active > a i, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover > a i {
-            color: #5191FA; }
+            color: #103e79; }
         .bravo_wrap .bravo_user_profile .sidebar-menu ul li a {
           border: 0;
           display: block;
@@ -569,8 +569,8 @@
           width: 100%;
           display: block; }
         .bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .ht-nav-tabs li.active a {
-          color: #5191FA;
-          border-bottom: 3px solid #5191FA; }
+          color: #103e79;
+          border-bottom: 3px solid #103e79; }
     .bravo_wrap .bravo_user_profile .booking-history-manager .btn-info-booking {
       color: #FFF;
       width: 80px;

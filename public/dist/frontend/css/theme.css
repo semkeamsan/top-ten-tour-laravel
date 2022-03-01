@@ -42862,7 +42862,7 @@ Letter Spacing
     padding: 20px;
     border-bottom: solid 1px #d7dce3;
     display: flex;
-    border-top: solid 5px #5191fa;
+    border-top: solid 5px #103e79;
     border-left: solid 1px #d7dce3;
     border-right: solid 1px #d7dce3;
 }
@@ -42882,12 +42882,12 @@ Letter Spacing
 }
 
 .hotel_rooms_form .nav-enquiry .enquiry-item.active span {
-    border-bottom: solid 1px #5191fa;
-    color: #5191fa;
+    border-bottom: solid 1px #103e79;
+    color: #103e79;
 }
 
 .sfeedbacks_form .sspd_review .far.selected, .sfeedbacks_form .sspd_review .far.hovered{
-    color: #5191fa;
+    color: #103e79;
 }
 
 .facebook, .twitter {
@@ -42997,7 +42997,7 @@ Letter Spacing
 }
 
 .select-guests-dropdown .dropdown-item-row .count-display {
-    color: #5191fa;
+    color: #103e79;
     min-width: 25px;
     text-align: center;
 }
@@ -43007,7 +43007,7 @@ Letter Spacing
     background: 0 0;
     width: 35px;
     text-align: center;
-    color: #5191fa;
+    color: #103e79;
     margin-left: 15px;
 }
 

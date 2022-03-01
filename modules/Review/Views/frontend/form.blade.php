@@ -160,7 +160,7 @@
                                 </div>
                             </div>
                             <div class="col d-flex justify-content-center justify-content-lg-start">
-                                <button type="submit" id="submit" name="submit" class="btn rounded-xs bg-blue-dark-1 text-white p-2 height-51 width-190 transition-3d-hover">{{__("Leave a Review")}}</button>
+                                <button type="submit" id="submit" name="submit" class="btn rounded-xs bg-primary text-white p-2 height-51 width-190 transition-3d-hover">{{__("Leave a Review")}}</button>
                                 <input type="hidden" name="review_service_id" value="{{$row->id}}">
                                 <input type="hidden" name="review_service_type" value="{{ $row->type }}">
                             </div>

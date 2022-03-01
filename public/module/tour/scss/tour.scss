@@ -73,7 +73,7 @@
                         list-style: none;
                         &:before {
                             content: '';
-                            border: 1px solid #5191FA;
+                            border: 1px solid #103e79;
                             width: 8px;
                             height: 8px;
                             display: inline-block;
@@ -124,7 +124,7 @@
                             font-size: 16px;
                             position: relative;
                             &.icon-default{
-                                color: #5191fa;
+                                color: #103e79;
                             }
                         }
                         @media(max-width: 768px){
@@ -213,7 +213,7 @@
                                   margin-top: 8px;
                               }
                               .text-rating {
-                                  color: #5191FA;
+                                  color: #103e79;
                                   font-size: 14px;
                               }
                           }
@@ -222,7 +222,7 @@
                               float: right;
                               margin-left: 20px;
                               padding: 10px 10px 0px 10px;
-                              background: #5191fa;
+                              background: #103e79;
                               border-radius: 4px;
                               color: #fff;
                               font-size: 30px;
@@ -240,7 +240,7 @@
                                   bottom: 0;
                                   left: -8px;
                                   border: 15px solid transparent;
-                                  border-bottom: 25px solid #5191FA;
+                                  border-bottom: 25px solid #103e79;
                               }
                           }
                       }
@@ -314,7 +314,7 @@
                               font-size: 16px;
                               position: relative;
                               &.icon-default{
-                                  color: #5191fa;
+                                  color: #103e79;
                               }
                           }
                           @media(max-width: 768px){
@@ -773,7 +773,7 @@
                 font-size: 16px;
             }
             .val{
-                color:#5191FA;
+                color:#103e79;
                 font-weight: 500;
                 font-size: 16px;
             }

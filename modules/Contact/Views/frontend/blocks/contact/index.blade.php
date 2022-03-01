@@ -76,7 +76,7 @@
                             {{recaptcha_field('contact')}}
                         </div>
                         <div class="col d-flex justify-content-lg-start">
-                            <button type="submit" class="btn rounded-xs bg-blue-dark-1 text-white height-51 width-190 transition-3d-hover">
+                            <button type="submit" class="btn rounded-xs bg-primary text-white height-51 width-190 transition-3d-hover">
                                 {{ __("Send Message") }}
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </button>

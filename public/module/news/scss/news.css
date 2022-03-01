@@ -92,7 +92,7 @@
           float: left;
           margin-right: 10px;
           border-radius: 3px;
-          background: #5191FA;
+          background: #103e79;
           margin-bottom: 5px; }
           .bravo-news .header .cate ul li a {
             color: #fff;
@@ -168,7 +168,7 @@
         top: -1px;
         border-radius: 50%;
         margin-right: 15px;
-        background: #5191fa; }
+        background: #103e79; }
       .bravo-news .widget_category ul li a {
         font-weight: 500;
         font-size: 14px;
@@ -306,7 +306,7 @@
         border-radius: 50%; }
   .bravo-news .btn-readmore {
     font-size: 14px;
-    color: #5191FA;
+    color: #103e79;
     font-weight: 600;
     text-transform: uppercase;
     margin-top: 20px;

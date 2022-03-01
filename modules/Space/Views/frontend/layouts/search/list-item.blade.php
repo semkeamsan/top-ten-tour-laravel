@@ -4,7 +4,7 @@
     </div>
     <div class="col-lg-8 col-xl-9 col-md-12">
         <div class="bravo-list-item">
-            <div class="d-flex justify-content-between align-items-center mb-4 topbar-search">
+            <div class="d-block d-xl-flex justify-content-between align-items-center mb-4 topbar-search">
                 <h3 class="font-size-21 font-weight-bold mb-0 text-lh-1">
                     @if($rows->total() > 1)
                         {{ __(":count spaces found",['count'=>$rows->total()]) }}

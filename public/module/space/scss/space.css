@@ -45,7 +45,7 @@
       content: '';
       width: 3px;
       height: 20px;
-      background: #5191FA;
+      background: #103e79;
       float: left;
       position: relative;
       top: -2px;
@@ -85,12 +85,12 @@
         list-style: none; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .btn-more-item {
         font-size: 14px;
-        color: #5191FA;
+        color: #103e79;
         padding: 0;
         text-decoration: none; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .btn-apply-price-range {
         font-size: 14px;
-        color: #5191FA;
+        color: #103e79;
         margin-top: 20px;
         font-weight: 600;
         padding: 0;
@@ -98,15 +98,15 @@
         outline: none; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-from, .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to, .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single {
         font-size: 11px;
-        background-color: #5191FA; }
+        background-color: #103e79; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-bar {
         top: 25px;
         height: 12px;
-        background-color: #5191FA; }
+        background-color: #103e79; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-handle > i:first-child {
-        background-color: #5191FA; }
+        background-color: #103e79; }
       .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-from:before, .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to:before, .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single:before {
-        border-top-color: #5191FA; }
+        border-top-color: #103e79; }
     .bravo_wrap .bravo_search_space .bravo_filter .g-filter-item .item-title.e-close .fa {
       transform: rotate(180deg) !important; }
 .bravo_wrap .bravo_search_space .bravo-list-item .topbar-search .text {
@@ -133,7 +133,7 @@
       top: -25px;
       color: #fff;
       font-size: 15px;
-      background-color: #5191fa;
+      background-color: #103e79;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -220,7 +220,7 @@
     .bravo_wrap .bravo_search_space .bravo-list-item .list-item .item-loop .service-review {
       padding: 10px 15px 0; }
       .bravo_wrap .bravo_search_space .bravo-list-item .list-item .item-loop .service-review .rate {
-        color: #5191FA; }
+        color: #103e79; }
       .bravo_wrap .bravo_search_space .bravo-list-item .list-item .item-loop .service-review .review {
         margin-left: 30px;
         position: relative;
@@ -329,7 +329,7 @@
     top: 2px;
     width: 5px;
     height: 8px;
-    border: solid #5191FA;
+    border: solid #103e79;
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg); }
@@ -533,7 +533,7 @@
         list-style: none; }
         .bravo_wrap .bravo_detail_space .bravo_content .g-overview ul li:before {
           content: '';
-          border: 1px solid #5191FA;
+          border: 1px solid #103e79;
           width: 8px;
           height: 8px;
           display: inline-block;
@@ -720,7 +720,7 @@
               width: auto; } }
   .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book {
     border: 1px solid #D7DCE3;
-    border-top: 5px solid #5191FA;
+    border-top: 5px solid #103e79;
     border-radius: 0 0 4px 4px;
     background: #FFF;
     position: relative; }
@@ -810,7 +810,7 @@
         .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .date-wrapper .check-in-wrapper .render, .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .date-wrapper .guest-wrapper .render, .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .form-guest-search .check-in-wrapper .render, .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .form-guest-search .guest-wrapper .render {
           color: #5E6D77; }
       .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .date-wrapper .check-in-wrapper .render, .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .form-guest-search .check-in-wrapper .render {
-        color: #5191fa;
+        color: #103e79;
         font-size: 14px; }
         .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .date-wrapper .check-in-wrapper .render i, .bravo_wrap .bravo_detail_space .bravo_content .bravo_space_book .form-guest-search .check-in-wrapper .render i {
           font-size: inherit;
@@ -877,7 +877,7 @@
       top: -25px;
       color: #fff;
       font-size: 15px;
-      background-color: #5191fa;
+      background-color: #103e79;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -964,7 +964,7 @@
     .bravo_wrap .bravo_detail_space .bravo-list-space-related .item-loop .service-review {
       padding: 10px 15px 0; }
       .bravo_wrap .bravo_detail_space .bravo-list-space-related .item-loop .service-review .rate {
-        color: #5191FA; }
+        color: #103e79; }
       .bravo_wrap .bravo_detail_space .bravo-list-space-related .item-loop .service-review .review {
         margin-left: 30px;
         position: relative;
@@ -1147,7 +1147,7 @@
     .cart-total-group li.line-end-total .label {
       font-size: 16px; }
     .cart-total-group li.line-end-total .val {
-      color: #5191FA;
+      color: #103e79;
       font-weight: 500;
       font-size: 16px; }
 
@@ -1280,7 +1280,7 @@
               width: 100%;
               margin-right: -15px;
               border-radius: 0;
-              background: #5191FA;
+              background: #103e79;
               border: none;
               text-transform: uppercase;
               font-weight: 500;

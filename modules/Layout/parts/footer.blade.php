@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="sub-footer d-flex align-items-center justify-content-between">
                     <a class="d-inline-flex align-items-center" href="{{ url('/') }}" aria-label="TopTenTour">
-                        {!! get_image_tag(setting_item_with_lang('logo_id_2')) !!}
+                        <img class="lazy rounded-circle" data-src="{{  get_file_url(setting_item_with_lang('logo_id_2'),'full') }}">
                         <span class="brand brand-dark">{{ setting_item_with_lang('logo_text') }}</span>
                     </a>
                     <div class="footer-select bravo_topbar d-flex align-items-center">
