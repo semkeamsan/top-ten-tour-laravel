@@ -6,8 +6,11 @@ return [
     ],
     'payment_gateways'=>[
         'offline_payment'=>Modules\Booking\Gateways\OfflinePaymentGateway::class,
-        'paypal'=>Modules\Booking\Gateways\PaypalGateway::class,
-        'stripe'=>Modules\Booking\Gateways\StripeGateway::class
+        //'paypal'=>Modules\Booking\Gateways\PaypalGateway::class,
+        //'stripe'=>Modules\Booking\Gateways\StripeGateway::class
+        'aba'=>Modules\Booking\Gateways\ABAPaymentGateway::class,
+        'acleda'=>Modules\Booking\Gateways\AcledaPaymentGateway::class,
+        'wing'=>Modules\Booking\Gateways\WingPaymentGateway::class,
     ],
     'statuses'=>[
         'completed',

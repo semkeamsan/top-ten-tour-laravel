@@ -13,7 +13,8 @@ class SettingClass extends BaseSettingsClass
             'currency_decimal',
             'currency_thousand',
             'currency_no_decimal',
-            'extra_currency'
+            'extra_currency',
+
         ];
         $all = get_payment_gateways();
         $languages = \Modules\Language\Models\Language::getActive();

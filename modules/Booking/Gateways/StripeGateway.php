@@ -165,7 +165,7 @@ class StripeGateway extends BaseGateway
             throw new Exception('Stripe Gateway: ' . $e->getMessage());
         }
     }
-
+ 
     public function getValidationRules()
     {
         $rules = [

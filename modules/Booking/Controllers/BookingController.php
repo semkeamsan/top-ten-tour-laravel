@@ -58,7 +58,6 @@ class BookingController extends \App\Http\Controllers\Controller
         if($res !== true) return $res;
 
         $booking = $this->bookingInst;
-
         if($booking->status != 'draft'){
             return redirect('/');
         }
@@ -265,6 +264,8 @@ class BookingController extends \App\Http\Controllers\Controller
         $gateways = get_payment_gateways();
         if($booking->pay_now > 0){
             $gatewayObj = new $gateways[$payment_gateway]($payment_gateway);
+
+
             if (!empty($rules['payment_gateway'])) {
                 if (empty($gateways[$payment_gateway]) or !class_exists($gateways[$payment_gateway])) {
                     return $this->sendError(__("Payment gateway not found"));

@@ -329,7 +329,7 @@ class Hotel extends Bookable
             if($booking_deposit_fomular == "deposit_and_fee"){
                 $tmp_price_total = $booking->total_before_fees;
             }
-
+            $booking->deposit_type = $this->getDepositType();
             switch ($this->getDepositType()){
                 case "percent":
                     $booking->deposit = $tmp_price_total * $this->getDepositAmount() / 100;
