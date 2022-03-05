@@ -433,7 +433,7 @@
 
 
 @if(is_default_lang())
-    <div class="row d-none">
+    <div class="row">
         <div class="col-sm-4">
             <h3 class="form-group-title">{{__("Booking Deposit")}}</h3>
         </div>
