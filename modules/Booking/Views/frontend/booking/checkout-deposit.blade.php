@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h4 class="mb-0"><label ><input type="radio" checked name="how_to_pay" value="deposit">
-                                {{__("Pay deposit")}}
+                                {{__("Pay deposit")}} ({{ __($booking->deposit_type) }} )
                             </label></h4>
                         <span class="price"><strong>{{format_money($booking->deposit)}}</strong></span>
                     </div>
