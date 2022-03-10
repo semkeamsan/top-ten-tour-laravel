@@ -26292,7 +26292,9 @@ table th {
 }
 
 @media (max-width: 1199.98px) {
-
+    .u-header--bg-transparent .u-header__navbar-brand-default img {
+        width: 60px;
+    }
 }
 
 @media (max-width: 1479.98px) {
@@ -35602,7 +35604,7 @@ label.btn {
 }
 
 .dropdown-nav-link {
-    color: #67747c;
+    color: #fff;
     font-weight: 400;
     font-size: .875rem
 }
