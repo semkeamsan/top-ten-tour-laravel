@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-        <div class="border-top border-bottom border-color-8 space-1">
+        <div class="border-top border-bottom border-color-8 space-1 d-none">
             <div class="container">
                 <div class="sub-footer d-flex align-items-center justify-content-between">
                     <a class="d-inline-flex align-items-center" href="{{ url('/') }}" aria-label="TopTenTour">
