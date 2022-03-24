@@ -90,9 +90,7 @@
     <!-- Styles -->
     @yield('head')
 
-    @php $main_color = setting_item('style_main_color','#103e79');
-    $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
-    @endphp
+    @php($ $main_color = setting_item('style_main_color','#103e79'))
     <style type="text/css">
         .bravo_topbar, .bravo_header ,#header, .bravo_footer {
             display: none;
@@ -103,7 +101,7 @@
         }
 
         .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active.has-children>i:after, .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active>a, .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active>a i, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover.has-children>i:after, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover>a, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover>a i {
-
+            color: {{ $main_color }};
         }
     </style>
     {{--Custom Style--}}
