@@ -99,7 +99,7 @@
         }
         @php $main_color = setting_item('style_main_color','#103e79'); @endphp
         .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active.has-children>i:after, .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active>a, .bravo_wrap .bravo_user_profile .sidebar-menu ul li.active>a i, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover.has-children>i:after, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover>a, .bravo_wrap .bravo_user_profile .sidebar-menu ul li:hover>a i {
-                color: {{ main_color }};
+                color: {{ $main_color }};
         }
     </style>
     {{--Custom Style--}}
