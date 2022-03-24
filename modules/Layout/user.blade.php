@@ -90,7 +90,7 @@
     <!-- Styles -->
     @yield('head')
 
-    @php($ $main_color = setting_item('style_main_color','#103e79'))
+    @php($main_color = setting_item('style_main_color','#103e79'))
     <style type="text/css">
         .bravo_topbar, .bravo_header ,#header, .bravo_footer {
             display: none;
