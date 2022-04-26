@@ -1,10 +1,14 @@
 <div class="panel">
     <div class="panel-title"><strong>{{__("Hotel Content")}}</strong></div>
     <div class="panel-body">
+       
+        @if (auth()->user()->role_id == 3)
         <div class="form-group">
             <label>{{__("Position")}}</label>
             <input type="number" value="{!! clean($row->position) !!}" placeholder="{{__("Order")}}" name="position" class="form-control">
         </div>
+        @endif
+       
         <div class="form-group">
             <label>{{__("Title")}}</label>
             <input type="text" value="{!! clean($translation->title) !!}" placeholder="{{__("Name of the hotel")}}" name="title" class="form-control">
