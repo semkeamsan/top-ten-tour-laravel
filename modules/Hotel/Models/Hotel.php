@@ -1052,6 +1052,8 @@ class Hotel extends Bookable
             $model_hotel->orderByRaw("POW((bc_hotels.map_lng-?),2) + POW((bc_hotels.map_lat-?),2)",[$lgn,$lat]);
         }
         $orderby = $request->input("orderby");
+        $model_hotel->selectRaw('IF(`position` IS NOT NULL, `position`, 100000000) `order`');
+        $model_hotel->orderBy('order','asc');
         switch ($orderby){
             case "price_low_high":
                 $raw_sql = "CASE WHEN IFNULL( bc_hotels.sale_price, 0 ) > 0 THEN bc_hotels.sale_price ELSE bc_hotels.price END AS tmp_min_price";
@@ -1068,9 +1070,11 @@ class Hotel extends Bookable
                 break;
             default:
                 $model_hotel->orderBy("is_featured", "desc");
+                $model_hotel->orderBy("review_score", "desc");
                 $model_hotel->orderBy("id", "desc");
         }
-
+     
+      
         $model_hotel->groupBy("bc_hotels.id");
 
         if(!empty($request->query('limit'))){

@@ -2,6 +2,10 @@
     <div class="panel-title"><strong>{{__("Hotel Content")}}</strong></div>
     <div class="panel-body">
         <div class="form-group">
+            <label>{{__("Position")}}</label>
+            <input type="number" value="{!! clean($row->position) !!}" placeholder="{{__("Order")}}" name="position" class="form-control">
+        </div>
+        <div class="form-group">
             <label>{{__("Title")}}</label>
             <input type="text" value="{!! clean($translation->title) !!}" placeholder="{{__("Name of the hotel")}}" name="title" class="form-control">
         </div>

@@ -73,6 +73,7 @@
                                 <th width="200px"> {{ __('Location')}}</th>
                                 <th width="130px"> {{ __('Author')}}</th>
                                 <th width="100px"> {{ __('Status')}}</th>
+                                <th width="100px"> {{ __('Position')}}</th>
                                 <th width="100px"> {{ __('Reviews')}}</th>
                                 <th width="100px"> {{ __('Date')}}</th>
                                 <th width="100px"></th>
@@ -87,7 +88,9 @@
                                         <td class="title">
                                             <a href="{{route('hotel.admin.edit',['id'=>$row->id])}}">{{$row->title}}</a>
                                         </td>
+                                        
                                         <td>{{$row->location->name ?? ''}}</td>
+                                       
                                         <td>
                                             @if(!empty($row->author))
                                                 {{$row->author->getDisplayName()}}
@@ -96,6 +99,7 @@
                                             @endif
                                         </td>
                                         <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
+                                        <td>{{$row->position ?? __('N/A')}}</td>
                                         <td>
                                             <a target="_blank" href="{{ url("/admin/module/review?service_id=".$row->id) }}" class="review-count-approved">
                                                 {{ $row->getNumberReviewsInService() }}

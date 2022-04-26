@@ -227,6 +227,7 @@ class HotelController extends AdminController
             'min_day_stays',
             'enable_service_fee',
             'service_fee',
+            'position',
             'surrounding',
             'badge_tags'
         ];

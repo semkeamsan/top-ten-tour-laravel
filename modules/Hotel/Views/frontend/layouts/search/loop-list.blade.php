@@ -16,20 +16,25 @@
             <div class="col-md-7 col-xl-5 col-wd-4gdot5 flex-horizontal-center">
                 <div class="w-100 position-relative m-4 m-md-0">
                     <div class="mb-1 pb-1">
-                        @if($row->is_featured == "1")
-                            <span class="badge badge-orange text-white rounded-xs font-size-13 py-1 p-xl-2 mr-2">{{__('Featured')}}</span>
+                        @if ($row->is_featured == '1')
+                            <span
+                                class="badge badge-orange text-white rounded-xs font-size-13 py-1 p-xl-2 mr-2">{{ __('Featured') }}</span>
                         @endif
-                        @if($row->star_rate)
-                            <span class="green-lighter mr-2">
-                                @for ($star = 1 ;$star <= $row->star_rate ; $star++)
+                        <span class="green-lighter mr-2">
+                            @if ($row->star_rate)
+
+                                @for ($star = 1; $star <= $row->star_rate; $star++)
                                     <small class="fa fa-star font-size-12"></small>
                                 @endfor
-                            </span>
-                        @endif
+
+                            @endif
+                        </span>
                     </div>
                     <div class="position-absolute top-0 right-0 pr-md-3 d-none d-md-block">
-                        <button type="button" class="btn btn-sm btn-icon rounded-circle"  data-toggle="tooltip" data-placement="top" title="" data-original-title="{{__('Save for later')}}">
-                            <span class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
+                        <button type="button" class="btn btn-sm btn-icon rounded-circle" data-toggle="tooltip"
+                            data-placement="top" title="" data-original-title="{{ __('Save for later') }}">
+                            <span class="service-wishlist {{ $row->isWishList() }}" data-id="{{ $row->id }}"
+                                data-type="{{ $row->type }}">
                                 <span class="flaticon-heart-1 font-size-20"></span>
                             </span>
                         </button>
