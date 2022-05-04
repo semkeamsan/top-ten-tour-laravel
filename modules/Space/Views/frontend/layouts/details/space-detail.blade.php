@@ -8,7 +8,7 @@
             @endif
 
         </div>
-        <div class="d-block d-md-flex flex-horizontal-center font-size-14 text-gray-1">
+        <div class=" font-size-14 text-gray-1">
             @if($translation->address)
                 <i class="icon flaticon-placeholder mr-2 font-size-20"></i>
                 {{ $translation->address }}
