@@ -26354,7 +26354,7 @@ table th {
 
 .u-header__navbar-brand-text {
     font-size: 1.75rem;
-    margin-left: .875rem;
+    margin-left: .575rem;
     color: #297cbb
 }
 
@@ -26364,7 +26364,7 @@ table th {
 
 @media (max-width: 767.98px) {
     .u-header__navbar-brand-text {
-        font-size:1.438rem!important
+        font-size:1.338rem!important
     }
 }
 
