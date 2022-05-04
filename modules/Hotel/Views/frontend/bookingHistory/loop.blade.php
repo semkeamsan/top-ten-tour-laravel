@@ -10,7 +10,7 @@
             @php
                 $translation = $service->translateOrOrigin(app()->getLocale());
             @endphp
-            <a target="_blank" href="{{$service->getDetailUrl()}}">
+            <a href="{{$service->getDetailUrl()}}">
                 {{$translation->title}}
             </a>
         @else

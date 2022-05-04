@@ -10,7 +10,7 @@
                 </div>
             @endif
             <div class="thumb-image">
-                <a href="{{$row->getDetailUrl()}}" target="_blank">
+                <a href="{{$row->getDetailUrl()}}">
                     @if($row->image_url)
                         <img src="{{$row->image_url}}" class="img-responsive" alt="">
                     @endif
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-9">
             <div class="item-title">
-                <a href="{{$row->getDetailUrl()}}" target="_blank">
+                <a href="{{$row->getDetailUrl()}}">
                     {{$row->title}}
                 </a>
             </div>
@@ -45,7 +45,7 @@
                 {{__("Last Updated")}}: <span>{{ display_datetime($row->updated_at ?? $row->created_at) }}</span>
             </div>
             <div class="control-action">
-                <a href="{{$row->getDetailUrl()}}" target="_blank" class="btn btn-info">{{__("View")}}</a>
+                <a href="{{$row->getDetailUrl()}}" class="btn btn-info">{{__("View")}}</a>
                 @if(Auth::user()->hasPermissionTo('hotel_update'))
                     <a href="{{ route("hotel.vendor.edit",[$row->id]) }}" class="btn btn-warning">{{__("Edit")}}</a>
                 @endif

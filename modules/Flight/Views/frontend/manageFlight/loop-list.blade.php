@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="thumb-image">
-                <a href="#" target="_blank">
+                <a href="#">
                     @if($row->airline->image_url)
                         <img src="{{$row->airline->image_url}}" class="img-responsive" alt="">
                     @endif
@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-9">
             <div class="item-title">
-                <a href="{{$row->getDetailUrl()}}" target="_blank">
+                <a href="{{$row->getDetailUrl()}}">
                     {{$row->title}}
                 </a>
             </div>

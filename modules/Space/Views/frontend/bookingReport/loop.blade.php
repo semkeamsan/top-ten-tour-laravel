@@ -7,7 +7,7 @@
     </td>
     <td>
         @if($service = $booking->service)
-            <a target="_blank" href="{{$service->getDetailUrl()}}">
+            <a href="{{$service->getDetailUrl()}}">
                 {{$service->title}}
             </a>
         @else

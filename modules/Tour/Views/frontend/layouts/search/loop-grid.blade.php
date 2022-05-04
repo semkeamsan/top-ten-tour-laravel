@@ -3,7 +3,7 @@
 @endphp
 <div class="card transition-3d-hover shadow-hover-2 item-loop h-100 {{$wrap_class ?? ''}}">
     <div class="position-relative mb-2">
-        <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-block gradient-overlay-half-bg-gradient-v5">
+        <a @if(!empty($blank)) @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-block gradient-overlay-half-bg-gradient-v5">
             <img class="min-height-230 bg-img-hero card-img-top" src="{{$row->image_url}}" alt="{!! clean($translation->title) !!}">
         </a>
         <div class="position-absolute top-0 left-0 pt-4 pl-3 featured">

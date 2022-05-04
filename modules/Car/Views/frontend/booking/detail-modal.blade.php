@@ -51,7 +51,7 @@
                                             @if($vendor->hasPermissionTo('dashboard_vendor_access') and !$vendor->hasPermissionTo('dashboard_access'))
                                                 <li>
                                                     <div class="label">{{ __("Vendor") }}</div>
-                                                    <div class="val"><a href="{{route('user.profile',['id'=>$vendor->id])}}" target="_blank" >{{$vendor->getDisplayName()}}</a></div>
+                                                    <div class="val"><a href="{{route('user.profile',['id'=>$vendor->id])}}" >{{$vendor->getDisplayName()}}</a></div>
                                                 </li>
                                             @endif
                                         </ul>

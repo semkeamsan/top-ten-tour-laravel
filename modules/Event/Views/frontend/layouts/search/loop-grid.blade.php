@@ -8,7 +8,7 @@
         </div>
     @endif
     <div class="thumb-image ">
-        <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}">
+        <a @if(!empty($blank))  @endif href="{{$row->getDetailUrl($include_param ?? true)}}">
             @if($row->image_url)
                 @if(!empty($disable_lazyload))
                     <img src="{{$row->image_url}}" class="img-responsive" alt="">
@@ -44,7 +44,7 @@
             @endif
         </div>
         <div class="item-title">
-            <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}">
+            <a @if(!empty($blank))  @endif href="{{$row->getDetailUrl($include_param ?? true)}}">
                 @if($row->is_instant)
                     <i class="fa fa-bolt d-none"></i>
                 @endif

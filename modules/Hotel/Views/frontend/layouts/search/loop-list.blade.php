@@ -39,7 +39,7 @@
                             </span>
                         </button>
                     </div>
-                    <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl()}}">
+                    <a @if(!empty($blank))  @endif href="{{$row->getDetailUrl()}}">
                         <span class="font-weight-medium font-size-17 text-dark d-flex mb-1">{{$translation->title}} </span>
                     </a>
                     <div class="card-body p-0">

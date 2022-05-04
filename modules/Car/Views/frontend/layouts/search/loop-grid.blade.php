@@ -3,7 +3,7 @@
 @endphp
 <div class="card transition-3d-hover shadow-hover-2 item-loop w-100 {{$wrap_class ?? ''}}">
     <div class="position-relative">
-        <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-block gradient-overlay-half-bg-gradient-v5">
+        <a @if(!empty($blank))  @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-block gradient-overlay-half-bg-gradient-v5">
             <img class="card-img-top" src="{{$row->image_url}}" alt="{!! clean($translation->title) !!}">
         </a>
         <div class="position-absolute top-0 right-0 pt-4 pr-3 btn-wishlist">
@@ -13,7 +13,7 @@
         </div>
         <div class="position-absolute bottom-0 left-0 right-0 text-content">
             <div class="px-3 pb-2">
-                <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}" >
+                <a @if(!empty($blank))  @endif href="{{$row->getDetailUrl($include_param ?? true)}}" >
                     <span class="text-white font-weight-bold font-size-17">{!! clean($translation->title) !!}</span>
                 </a>
                 <div class="text-white my-2">
@@ -56,7 +56,7 @@
                 @endif
             </div>
         </a>
-        <a @if(!empty($blank)) target="_blank" @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-none title">
+        <a @if(!empty($blank)) @endif href="{{$row->getDetailUrl($include_param ?? true)}}" class="d-none title">
             <span class="font-weight-bold font-size-17">{!! clean($translation->title) !!}</span>
         </a>
         <div class="mt-1 service-review">

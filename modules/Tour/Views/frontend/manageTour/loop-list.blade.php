@@ -10,7 +10,7 @@
                 </div>
             @endif
             <div class="thumb-image">
-                <a href="{{$row->getDetailUrl()}}" target="_blank">
+                <a href="{{$row->getDetailUrl()}}">
                     @if($row->image_url)
                         <img src="{{$row->image_url}}" class="img-responsive" alt="{{$row->title}}">
                     @endif
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-9">
             <div class="item-title">
-                <a href="{{$row->getDetailUrl()}}" target="_blank">
+                <a href="{{$row->getDetailUrl()}}">
                     {{$row->title}}
                 </a>
             </div>
@@ -51,8 +51,8 @@
                         <a href="{{ route("tour.vendor.delete",['id'=>$row->id,'permanently_delete'=>1]) }}" class="btn btn-danger" data-confirm="<?php echo e(__("Do you want to permanently delete?")); ?>">{{__("Del")}}</a>
                     @endif
                 @else
-                    <a href="{{route('tour.vendor.clone',[$row->id])}}" target="_blank" class="btn btn-primary">{{__("Clone")}}</a>
-                    <a href="{{$row->getDetailUrl()}}" target="_blank" class="btn btn-info">{{__("View")}}</a>
+                    <a href="{{route('tour.vendor.clone',[$row->id])}}"  class="btn btn-primary">{{__("Clone")}}</a>
+                    <a href="{{$row->getDetailUrl()}}"  class="btn btn-info">{{__("View")}}</a>
 
                     @if(Auth::user()->hasPermissionTo('tour_update'))
                         <a href="{{ route("tour.vendor.edit",[$row->id]) }}" class="btn btn-warning">{{__("Edit")}}</a>

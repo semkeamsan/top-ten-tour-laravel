@@ -5,11 +5,11 @@ $vendor = $row->author;
 <div class="owner-info widget-box">
     <div class="media">
         <div class="media-left">
-            <a href="{{route('user.profile',['id'=>$vendor->user_name ?? $vendor->id])}}" target="_blank" class="avatar-cover" style="background-image: url('{{$vendor->getAvatarUrl()}}')" >
+            <a href="{{route('user.profile',['id'=>$vendor->user_name ?? $vendor->id])}}"  class="avatar-cover" style="background-image: url('{{$vendor->getAvatarUrl()}}')" >
             </a>
         </div>
         <div class="media-body">
-            <h4 class="media-heading"><a class="author-link" href="{{route('user.profile',['id'=>$vendor->user_name ?? $vendor->id])}}" target="_blank">{{$vendor->getDisplayName()}}</a>
+            <h4 class="media-heading"><a class="author-link" href="{{route('user.profile',['id'=>$vendor->user_name ?? $vendor->id])}}" >{{$vendor->getDisplayName()}}</a>
                 @if($vendor->is_verified)
                     <img data-toggle="tooltip" data-placement="top" src="{{asset('icon/ico-vefified-1.svg')}}" title="{{__("Verified")}}" alt="{{__("Verified")}}">
                 @else
