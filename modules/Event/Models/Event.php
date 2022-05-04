@@ -161,6 +161,7 @@ class Event extends Bookable
         }
         $items = explode(",", $this->gallery);
         foreach ($items as $k => $item) {
+            if($item){
             $large = FileHelper::url($item, 'full');
             $thumb = FileHelper::url($item, 'thumb');
             $list_item[] = [
@@ -168,6 +169,7 @@ class Event extends Bookable
                 'thumb' => $thumb
             ];
         }
+    }
         return $list_item;
     }
 
