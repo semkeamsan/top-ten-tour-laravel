@@ -7,9 +7,9 @@
             @if(!empty($rows))
                 @foreach($rows as $key=>$row)
                     @php
-                        $class = "col-md-6 col-xl-3 mb-3 mb-md-4";
+                        $class = "col-md-6 col-xl-3 mb-3 mb-md-4 col-sm-6 col-6";
                             if($key == 0 or $key == 1){
-                                $class = "col-md-6 mb-3 mb-md-4";
+                                $class = "col-md-6 mb-3 mb-md-4 col-sm-6 col-6";
                             }
                     @endphp
                     <div class="{{ $class }}">

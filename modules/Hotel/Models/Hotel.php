@@ -1,7 +1,9 @@
 <?php
+
 namespace Modules\Hotel\Models;
 
 use App\Currency;
+use App\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -27,21 +29,22 @@ class Hotel extends Bookable
     use SoftDeletes;
     use Notifiable;
     use CapturesService;
-    protected $table                              = 'bc_hotels';
-    public    $type                               = 'hotel';
-    public    $checkout_booking_detail_file       = 'Hotel::frontend/booking/detail';
-    public    $checkout_booking_detail_modal_file = 'Hotel::frontend/booking/detail-modal';
 
-    public    $set_paid_modal_file                = 'Hotel::frontend/booking/set-paid-modal';
-    public    $email_new_booking_file             = 'Hotel::emails.new_booking_detail';
-    protected $fillable      = [
+    protected $table = 'bc_hotels';
+    public $type = 'hotel';
+    public $checkout_booking_detail_file = 'Hotel::frontend/booking/detail';
+    public $checkout_booking_detail_modal_file = 'Hotel::frontend/booking/detail-modal';
+
+    public $set_paid_modal_file = 'Hotel::frontend/booking/set-paid-modal';
+    public $email_new_booking_file = 'Hotel::emails.new_booking_detail';
+    protected $fillable = [
         'title',
         'content',
         'status',
     ];
-    protected $slugField     = 'slug';
+    protected $slugField = 'slug';
     protected $slugFromField = 'title';
-    protected $seo_type      = 'hotel';
+    protected $seo_type = 'hotel';
     protected $casts = [
         'policy' => 'array',
         'extra_price' => 'array',
@@ -173,7 +176,7 @@ class Hotel extends Bookable
         }
         $items = explode(",", $this->gallery);
         foreach ($items as $k => $item) {
-            if($item){
+            if ($item) {
                 $large = FileHelper::url($item, 'full');
                 $thumb = FileHelper::url($item, 'thumb');
                 $list_item[] = [
@@ -181,7 +184,7 @@ class Hotel extends Bookable
                     'thumb' => $thumb
                 ];
             }
-           
+
         }
         return $list_item;
     }
@@ -219,7 +222,7 @@ class Hotel extends Bookable
     public function addToCart(Request $request)
     {
         $res = $this->addToCartValidate($request);
-        if($res !== true) return $res;
+        if ($res !== true) return $res;
 
         // Add Booking
         $total_guests = $request->input('adults') + $request->input('children');
@@ -228,9 +231,9 @@ class Hotel extends Bookable
         $end_date = new \DateTime($request->input('end_date'));
         $extra_price = [];
         $extra_price_input = $request->input('extra_price');
-	    $extra_price = [];
+        $extra_price = [];
 
-	    $total = 0;
+        $total = 0;
         $total_room_selected = 0;
         if (!empty($this->tmp_selected_rooms)) {
             foreach ($this->tmp_selected_rooms as $room) {
@@ -241,7 +244,7 @@ class Hotel extends Bookable
             }
         }
 
-        $duration_in_hour = max(1,ceil(($end_date->getTimestamp() - $start_date->getTimestamp()) / HOUR_IN_SECONDS ) );
+        $duration_in_hour = max(1, ceil(($end_date->getTimestamp() - $start_date->getTimestamp()) / HOUR_IN_SECONDS));
         if ($this->enable_extra_price and !empty($this->extra_price)) {
             if (!empty($this->extra_price)) {
                 foreach ($this->extra_price as $k => $type) {
@@ -290,7 +293,7 @@ class Hotel extends Bookable
 
         //Service Fees for Vendor
         $total_service_fee = 0;
-        if(!empty($this->enable_service_fee) and !empty($list_service_fee = $this->service_fee)){
+        if (!empty($this->enable_service_fee) and !empty($list_service_fee = $this->service_fee)) {
             foreach ($list_service_fee as $item) {
                 //for Fixed
                 $serice_fee_price = $item['price'];
@@ -325,26 +328,38 @@ class Hotel extends Bookable
 
         $booking->calculateCommission();
 
-        if($this->isDepositEnable())
-        {
+        $commission_amount = $booking->commission;
+        $commission = json_decode($booking->commission_type);
+
+
+        if ($this->isDepositEnable()) {
             $booking_deposit_fomular = $this->getDepositFomular();
             $tmp_price_total = $booking->total;
-            if($booking_deposit_fomular == "deposit_and_fee"){
+            if ($booking_deposit_fomular == "deposit_and_fee") {
                 $tmp_price_total = $booking->total_before_fees;
             }
+
+            $booking->deposit_type = $commission->type;
+            $booking->deposit = $commission_amount;
+            /*
             $booking->deposit_type = $this->getDepositType();
-            switch ($this->getDepositType()){
+            switch ($this->getDepositType()) {
                 case "percent":
-                    $booking->deposit = $tmp_price_total * $this->getDepositAmount() / 100;
+                    $booking->deposit = $tmp_price_total * $this->getDepositAmount($this->create_user) / 100;
                     break;
                 default:
                     $booking->deposit = $this->getDepositAmount();
                     break;
             }
-            if($booking_deposit_fomular == "deposit_and_fee"){
+
+            */
+            if ($booking_deposit_fomular == "deposit_and_fee") {
                 $booking->deposit = $booking->deposit + $total_buyer_fee + $total_service_fee;
             }
         }
+
+        // dd($booking, $commission->type, $commission->amount);
+
 
         $check = $booking->save();
 
@@ -358,12 +373,11 @@ class Hotel extends Bookable
             $booking->addMeta('adults', $request->input('adults'));
             $booking->addMeta('children', $request->input('children'));
             $booking->addMeta('extra_price', $extra_price);
-            if($this->isDepositEnable())
-            {
-                $booking->addMeta('deposit_info',[
-                    'type'=>$this->getDepositType(),
-                    'amount'=>$this->getDepositAmount(),
-                    'fomular'=>$this->getDepositFomular(),
+            if ($this->isDepositEnable()) {
+                $booking->addMeta('deposit_info', [
+                    'type' => $this->getDepositType(),
+                    'amount' => $this->getDepositAmount(),
+                    'fomular' => $this->getDepositFomular(),
                 ]);
             }
             // Add Room Booking
@@ -380,13 +394,13 @@ class Hotel extends Bookable
                             'booking_id',
                             'price'
                         ], [
-                            'room_id'    => $room['id'],
-                            'parent_id'  => $this->id,
+                            'room_id' => $room['id'],
+                            'parent_id' => $this->id,
                             'start_date' => $start_date->format('Y-m-d H:i:s'),
-                            'end_date'   => $end_date->format('Y-m-d H:i:s'),
-                            'number'     => $room['number_selected'],
+                            'end_date' => $end_date->format('Y-m-d H:i:s'),
+                            'number' => $room['number_selected'],
                             'booking_id' => $booking->id,
-                            'price'      => $this->tmp_rooms_by_id[$room['id']]->tmp_price
+                            'price' => $this->tmp_rooms_by_id[$room['id']]->tmp_price
                         ]);
                         $hotelRoomBooking->save();
                     }
@@ -403,11 +417,11 @@ class Hotel extends Bookable
     public function addToCartValidate(Request $request)
     {
         $rules = [
-            'rooms'      => 'required',
-            'adults'     => 'required|integer|min:1',
-            'children'   => 'required|integer|min:0',
+            'rooms' => 'required',
+            'adults' => 'required|integer|min:1',
+            'children' => 'required|integer|min:0',
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date'   => 'required|date_format:Y-m-d'
+            'end_date' => 'required|date_format:Y-m-d'
         ];
         // Validation
         if (!empty($rules)) {
@@ -440,13 +454,13 @@ class Hotel extends Bookable
             $rooms_by_id[$room['id']] = $room;
         }
         $rooms_ids = array_column($rooms, 'id');
-        $numberDays = ( abs(strtotime($end_date) - strtotime($start_date)) / 86400 ) + 1;
+        $numberDays = (abs(strtotime($end_date) - strtotime($start_date)) / 86400) + 1;
         foreach ($selected_rooms as $room) {
             if (!in_array($room['id'], $rooms_ids) or $room['number_selected'] > $rooms_by_id[$room['id']]->tmp_number) {
                 return $this->sendError(__("Your selected room is not available. Please search again"));
             }
-            if(!empty($rooms_by_id[$room['id']]->min_day_stays) and  $numberDays < $rooms_by_id[$room['id']]->min_day_stays){
-                return $this->sendError(__("The :name need to select at least :number days",['name'=>$rooms_by_id[$room['id']]->title,'number'=>$rooms_by_id[$room['id']]->min_day_stays]));
+            if (!empty($rooms_by_id[$room['id']]->min_day_stays) and $numberDays < $rooms_by_id[$room['id']]->min_day_stays) {
+                return $this->sendError(__("The :name need to select at least :number days", ['name' => $rooms_by_id[$room['id']]->title, 'number' => $rooms_by_id[$room['id']]->min_day_stays]));
             }
         }
         $this->tmp_rooms_by_id = $rooms_by_id;
@@ -526,28 +540,28 @@ class Hotel extends Bookable
             $date_html = $start_html . '<i class="fa fa-long-arrow-right" style="font-size: inherit"></i>' . $end_html;
         }
         $booking_data = [
-            'id'              => $this->id,
-            'person_types'    => [],
-            'max'             => 0,
-            'open_hours'      => [],
-            'extra_price'     => [],
-            'minDate'         => date('m/d/Y'),
-            'max_guests'      => $this->max_guests ?? 1,
-            'buyer_fees'      => [],
-            'i18n'            => [
+            'id' => $this->id,
+            'person_types' => [],
+            'max' => 0,
+            'open_hours' => [],
+            'extra_price' => [],
+            'minDate' => date('m/d/Y'),
+            'max_guests' => $this->max_guests ?? 1,
+            'buyer_fees' => [],
+            'i18n' => [
                 'date_required' => __("Please select check-in and check-out date"),
-                "rooms"         => __('rooms'),
-                "room"          => __('room'),
+                "rooms" => __('rooms'),
+                "room" => __('room'),
             ],
-            'start_date'      => request()->input('start') ?? "",
+            'start_date' => request()->input('start') ?? "",
             'start_date_html' => $date_html ?? __('Please select'),
-            'end_date'        => request()->input('end') ?? "",
-            'deposit'=>$this->isDepositEnable(),
-            'deposit_type'=>$this->getDepositType(),
-            'deposit_amount'=>$this->getDepositAmount(),
-            'deposit_fomular'=>$this->getDepositFomular(),
-            'is_form_enquiry_and_book'=> $this->isFormEnquiryAndBook(),
-            'enquiry_type'=> $this->getBookingEnquiryType(),
+            'end_date' => request()->input('end') ?? "",
+            'deposit' => $this->isDepositEnable(),
+            'deposit_type' => $this->getDepositType(),
+            'deposit_amount' => $this->getDepositAmount(),
+            'deposit_fomular' => $this->getDepositFomular(),
+            'is_form_enquiry_and_book' => $this->isFormEnquiryAndBook(),
+            'enquiry_type' => $this->getBookingEnquiryType(),
         ];
         if (!empty($adults = request()->input('adults'))) {
             $booking_data['adults'] = $adults;
@@ -594,7 +608,7 @@ class Hotel extends Bookable
                 $booking_data['buyer_fees'][] = $item;
             }
         }
-        if(!empty($this->enable_service_fee) and !empty($service_fee = $this->service_fee)){
+        if (!empty($this->enable_service_fee) and !empty($service_fee = $this->service_fee)) {
             foreach ($service_fee as $item) {
                 $item['type_name'] = $item['name_' . app()->getLocale()] ?? $item['name'] ?? '';
                 $item['type_desc'] = $item['desc_' . app()->getLocale()] ?? $item['desc'] ?? '';
@@ -687,10 +701,10 @@ class Hotel extends Bookable
     public function getReviewDataAttribute()
     {
         $list_score = [
-            'score_total'  => 0,
-            'score_text'   => __("Not rated"),
+            'score_total' => 0,
+            'score_text' => __("Not rated"),
             'total_review' => 0,
-            'rate_score'   => [],
+            'rate_score' => [],
         ];
         $dataTotalReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->first();
         if (!empty($dataTotalReview->score_total)) {
@@ -712,8 +726,8 @@ class Hotel extends Bookable
                 $percent = 0;
             }
             $list_score['rate_score'][$rate] = [
-                'title'   => $this->reviewClass::getDisplayTextScoreByLever($rate),
-                'total'   => $number,
+                'title' => $this->reviewClass::getDisplayTextScoreByLever($rate),
+                'total' => $number,
                 'percent' => round($percent),
             ];
         }
@@ -732,7 +746,7 @@ class Hotel extends Bookable
             $dataReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $hotel_id)->where('object_model', "hotel")->where("status", "approved")->first();
             $score_total = !empty($dataReview->score_total) ? number_format($dataReview->score_total, 1) : 0;
             return [
-                'score_total'  => $score_total,
+                'score_total' => $score_total,
                 'total_review' => !empty($dataReview->total_review) ? $dataReview->total_review : 0,
             ];
         });
@@ -745,8 +759,9 @@ class Hotel extends Bookable
         return $this->reviewClass::countReviewByServiceID($this->id, false, $status, $this->type) ?? 0;
     }
 
-    public function getReviewList(){
-        return $this->reviewClass::select(['id','title','content','rate_number','author_ip','status','created_at','vendor_id','create_user'])->where('object_id', $this->id)->where('object_model', 'hotel')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('hotel_review_number_per_page', 5));
+    public function getReviewList()
+    {
+        return $this->reviewClass::select(['id', 'title', 'content', 'rate_number', 'author_ip', 'status', 'created_at', 'vendor_id', 'create_user'])->where('object_id', $this->id)->where('object_model', 'hotel')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('hotel_review_number_per_page', 5));
     }
 
     public function getNumberServiceInLocation($location)
@@ -793,7 +808,7 @@ class Hotel extends Bookable
         //Terms
         foreach ($selected_terms as $term_id) {
             $this->hotelTermClass::firstOrCreate([
-                'term_id'   => $term_id,
+                'term_id' => $term_id,
                 'target_id' => $new->id
             ]);
         }
@@ -857,15 +872,15 @@ class Hotel extends Bookable
                 $terms = Terms::getTermsByIdForAPI($room->terms->pluck('term_id'));
                 $term_features = [];
                 $i = 0;
-                if(!empty($terms)){
-                    foreach ($terms as $term){
-                        if(!empty($term['child'])){
-                            foreach ($term['child'] as $child){
+                if (!empty($terms)) {
+                    foreach ($terms as $term) {
+                        if (!empty($term['child'])) {
+                            foreach ($term['child'] as $child) {
                                 $term_features[] = [
                                     'icon' => $child['icon'] ?? 'fa fa-smile-o',
                                     'title' => $child['title']
                                 ];
-                                $i ++;
+                                $i++;
                                 if ($i == 5) break;
                             }
                         }
@@ -873,23 +888,23 @@ class Hotel extends Bookable
                     }
                 }
                 $res[] = [
-                    'id'              => $room->id,
-                    'title'           => $translation->title,
-                    'price'           => $room->tmp_price ?? 0,
-                    'size_html'       => $room->size ? size_unit_format($room->size) : '',
-                    'beds_html'       => $room->beds ? 'x' . $room->beds : '',
-                    'adults_html'     => $room->adults ? 'x' . $room->adults : '',
-                    'children_html'   => $room->children ? 'x' . $room->children : '',
+                    'id' => $room->id,
+                    'title' => $translation->title,
+                    'price' => $room->tmp_price ?? 0,
+                    'size_html' => $room->size ? size_unit_format($room->size) : '',
+                    'beds_html' => $room->beds ? 'x' . $room->beds : '',
+                    'adults_html' => $room->adults ? 'x' . $room->adults : '',
+                    'children_html' => $room->children ? 'x' . $room->children : '',
                     'number_selected' => 0,
-                    'number'          => (int)$room->tmp_number ?? 0,
-                    'min_day_stays'   => $room->min_day_stays ?? 0,
-                    'image'           => $room->image_id ? get_file_url($room->image_id, 'medium') : '',
-                    'tmp_number'      => $room->tmp_number,
-                    'gallery'         => $room->getGallery(),
-                    'price_html'      => format_money($room->tmp_price) . '<span class="unit">/' . ($room->tmp_nights ? __(':count nights', ['count' => $room->tmp_nights]) : __(":count night", ['count' => $room->tmp_nights])) . '</span>',
-                    'price_text'      => format_money($room->tmp_price) . '/' . ($room->tmp_nights ? __(':count nights', ['count' => $room->tmp_nights]) : __(":count night", ['count' => $room->tmp_nights])),
-                    'terms'           => $terms,
-                    'term_features'   => $term_features
+                    'number' => (int)$room->tmp_number ?? 0,
+                    'min_day_stays' => $room->min_day_stays ?? 0,
+                    'image' => $room->image_id ? get_file_url($room->image_id, 'medium') : '',
+                    'tmp_number' => $room->tmp_number,
+                    'gallery' => $room->getGallery(),
+                    'price_html' => format_money($room->tmp_price) . '<span class="unit">/' . ($room->tmp_nights ? __(':count nights', ['count' => $room->tmp_nights]) : __(":count night", ['count' => $room->tmp_nights])) . '</span>',
+                    'price_text' => format_money($room->tmp_price) . '/' . ($room->tmp_nights ? __(':count nights', ['count' => $room->tmp_nights]) : __(":count night", ['count' => $room->tmp_nights])),
+                    'terms' => $terms,
+                    'term_features' => $term_features
                 ];
                 $this->tmp_rooms[] = $room;
             }
@@ -902,83 +917,100 @@ class Hotel extends Bookable
         return setting_item('hotel_disable') == false;
     }
 
-    public function isDepositEnable(){
+    public function isDepositEnable()
+    {
         return (setting_item('hotel_deposit_enable') and setting_item('hotel_deposit_amount'));
     }
-    public function getDepositAmount(){
-        return setting_item('hotel_deposit_amount');
+
+    public function getDepositAmount($vendor_id = null)
+    {
+        $deposit_amount = setting_item('hotel_deposit_amount');
+        if ($vendor_id) {
+            $user = User::query()->select('id', 'vendor_commission_amount', 'vendor_commission_type')->find($vendor_id);
+            if ($user) {
+                $deposit_amount = $user->vendor_commission_amount;
+            }
+        }
+        return $deposit_amount;
     }
-    public function getDepositType(){
+
+    public function getDepositType()
+    {
         return setting_item('hotel_deposit_type');
     }
-    public function getDepositFomular(){
-        return setting_item('hotel_deposit_fomular','default');
+
+    public function getDepositFomular()
+    {
+        return setting_item('hotel_deposit_fomular', 'default');
     }
 
 
-    public function detailBookingEachDate($booking){
-	    $rooms = \Modules\Hotel\Models\HotelRoomBooking::getByBookingId($booking->id);
-	    $roomsIds = $rooms->pluck('room_id')->toArray();
-	    $roomsNumber = $rooms->pluck('number','room_id')->toArray();
-	    $startDate = $booking->start_date;
-	    $endDate = $booking->end_date;
-	    $query = HotelRoomDate::query();
-	    $query->whereIn('target_id',$roomsIds);
-	    $query->where('start_date','>=',date('Y-m-d H:i:s',strtotime($startDate)));
-	    $query->where('end_date','<',date('Y-m-d H:i:s',strtotime($endDate)));
-	    $roomsDates = $query->get();
-	    $allDates=[];
-	    foreach ($rooms as $r=> $room){
-            $period = periodDate($startDate,$endDate,false);
-            foreach ($period as $dt){
-		    	$price = $room->room->price * $room->number;
-			    $date['price'] =$price;
-			    $date['price_html'] = format_money($price);
-			    $date['from'] = $dt->getTimestamp();
-			    $date['from_html'] = $dt->format('d/m/Y');
-			    $date['to'] = $dt->getTimestamp();
-			    $date['to_html'] = $dt->format('d/m/Y');
-			    $allDates[$room->room_id][$dt->format('d/m/Y')] = $date;
-		    }
-	    }
+    public function detailBookingEachDate($booking)
+    {
+        $rooms = \Modules\Hotel\Models\HotelRoomBooking::getByBookingId($booking->id);
+        $roomsIds = $rooms->pluck('room_id')->toArray();
+        $roomsNumber = $rooms->pluck('number', 'room_id')->toArray();
+        $startDate = $booking->start_date;
+        $endDate = $booking->end_date;
+        $query = HotelRoomDate::query();
+        $query->whereIn('target_id', $roomsIds);
+        $query->where('start_date', '>=', date('Y-m-d H:i:s', strtotime($startDate)));
+        $query->where('end_date', '<', date('Y-m-d H:i:s', strtotime($endDate)));
+        $roomsDates = $query->get();
+        $allDates = [];
+        foreach ($rooms as $r => $room) {
+            $period = periodDate($startDate, $endDate, false);
+            foreach ($period as $dt) {
+                $price = $room->room->price * $room->number;
+                $date['price'] = $price;
+                $date['price_html'] = format_money($price);
+                $date['from'] = $dt->getTimestamp();
+                $date['from_html'] = $dt->format('d/m/Y');
+                $date['to'] = $dt->getTimestamp();
+                $date['to_html'] = $dt->format('d/m/Y');
+                $allDates[$room->room_id][$dt->format('d/m/Y')] = $date;
+            }
+        }
 
-	    if(!empty($roomsDates))
-	    {
-		    foreach ($roomsDates as $roomsDate)
-		    {
-			    $startDate = strtotime($roomsDate->start_date);
+        if (!empty($roomsDates)) {
+            foreach ($roomsDates as $roomsDate) {
+                $startDate = strtotime($roomsDate->start_date);
 
-			    $price = $roomsDate->price * $roomsNumber[$roomsDate->target_id]??1;
-			    $date['price'] = $price;
-			    $date['price_html'] = format_money($price);
-			    $date['from'] = $startDate;
-			    $date['from_html'] = date('d/m/Y',$startDate);
-			    $date['to'] = $startDate;
-			    $date['to_html'] = date('d/m/Y',($startDate));
-			    $allDates[$roomsDate->target_id][date('Y-m-d',$startDate)] = $date;
-		    }
-	    }
-	    return $allDates;
+                $price = $roomsDate->price * $roomsNumber[$roomsDate->target_id] ?? 1;
+                $date['price'] = $price;
+                $date['price_html'] = format_money($price);
+                $date['from'] = $startDate;
+                $date['from_html'] = date('d/m/Y', $startDate);
+                $date['to'] = $startDate;
+                $date['to_html'] = date('d/m/Y', ($startDate));
+                $allDates[$roomsDate->target_id][date('Y-m-d', $startDate)] = $date;
+            }
+        }
+        return $allDates;
     }
 
-    public static function isEnableEnquiry(){
-        if(!empty(setting_item('booking_enquiry_for_hotel'))){
+    public static function isEnableEnquiry()
+    {
+        if (!empty(setting_item('booking_enquiry_for_hotel'))) {
             return true;
         }
         return false;
     }
 
-    public static function isFormEnquiryAndBook(){
+    public static function isFormEnquiryAndBook()
+    {
         $check = setting_item('booking_enquiry_for_hotel');
-        if(!empty($check) and setting_item('booking_enquiry_type') == "booking_and_enquiry" ){
+        if (!empty($check) and setting_item('booking_enquiry_type') == "booking_and_enquiry") {
             return true;
         }
         return false;
     }
-    public static function getBookingEnquiryType(){
+
+    public static function getBookingEnquiryType()
+    {
         $check = setting_item('booking_enquiry_for_hotel');
-        if(!empty($check)){
-            if( setting_item('booking_enquiry_type') == "only_enquiry" ) {
+        if (!empty($check)) {
+            if (setting_item('booking_enquiry_type') == "only_enquiry") {
                 return "enquiry";
             }
         }
@@ -990,8 +1022,8 @@ class Hotel extends Bookable
         $model_hotel = parent::query()->select("bc_hotels.*");
         $model_hotel->where("bc_hotels.status", "publish");
         if (!empty($location_id = $request->query('location_id'))) {
-            $location = Location::query()->where('id', $location_id)->where("status","publish")->first();
-            if(!empty($location)){
+            $location = Location::query()->where('id', $location_id)->where("status", "publish")->first();
+            if (!empty($location)) {
                 $model_hotel->join('bc_locations', function ($join) use ($location) {
                     $join->on('bc_locations.id', '=', 'bc_hotels.location_id')
                         ->where('bc_locations._lft', '>=', $location->_lft)
@@ -1006,23 +1038,22 @@ class Hotel extends Bookable
             $pri_to = Currency::convertToMain($pri_to);
             $raw_sql_min_max = "(  bc_hotels.price >= ? )
                             AND (  bc_hotels.price <= ? )";
-            $model_hotel->WhereRaw($raw_sql_min_max,[$pri_from,$pri_to]);
+            $model_hotel->WhereRaw($raw_sql_min_max, [$pri_from, $pri_to]);
         }
 
         if (!empty($star_rate = $request->query('star_rate'))) {
-            $model_hotel->WhereIn('star_rate',$star_rate);
+            $model_hotel->WhereIn('star_rate', $star_rate);
         }
 
         $terms = $request->query('terms');
-        if($term_id = $request->query('term_id'))
-        {
+        if ($term_id = $request->query('term_id')) {
             $terms[] = $term_id;
         }
         if (is_array($terms) && !empty($terms)) {
             $terms = Arr::where($terms, function ($value, $key) {
                 return !is_null($value);
             });
-            if(!empty($terms)){
+            if (!empty($terms)) {
                 $model_hotel->join('bc_hotel_term as tt', 'tt.target_id', "bc_hotels.id")->whereIn('tt.term_id', $terms);
             }
         }
@@ -1031,33 +1062,33 @@ class Hotel extends Bookable
         if (is_array($review_scores) && !empty($review_scores)) {
             $where_review_score = [];
             $params = [];
-            foreach ($review_scores as $number){
+            foreach ($review_scores as $number) {
                 $where_review_score[] = " ( bc_hotels.review_score >= ? AND bc_hotels.review_score <= ? ) ";
                 $params[] = $number;
-                $params[] = $number.'.9';
+                $params[] = $number . '.9';
             }
             $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
-            $model_hotel->WhereRaw($sql_where_review_score,$params);
+            $model_hotel->WhereRaw($sql_where_review_score, $params);
         }
 
-        if(!empty( $service_name = $request->query("service_name") )){
-            if( setting_item('site_enable_multi_lang') && setting_item('site_locale') != app()->getLocale() ){
+        if (!empty($service_name = $request->query("service_name"))) {
+            if (setting_item('site_enable_multi_lang') && setting_item('site_locale') != app()->getLocale()) {
                 $model_hotel->leftJoin('bc_hotel_translations', function ($join) {
                     $join->on('bc_hotels.id', '=', 'bc_hotel_translations.origin_id');
                 });
                 $model_hotel->where('bc_hotel_translations.title', 'LIKE', '%' . $service_name . '%');
 
-            }else{
+            } else {
                 $model_hotel->where('bc_hotels.title', 'LIKE', '%' . $service_name . '%');
             }
         }
-        if(!empty($lat = $request->query('map_lat')) and !empty($lgn = $request->query('map_lgn'))){
-            $model_hotel->orderByRaw("POW((bc_hotels.map_lng-?),2) + POW((bc_hotels.map_lat-?),2)",[$lgn,$lat]);
+        if (!empty($lat = $request->query('map_lat')) and !empty($lgn = $request->query('map_lgn'))) {
+            $model_hotel->orderByRaw("POW((bc_hotels.map_lng-?),2) + POW((bc_hotels.map_lat-?),2)", [$lgn, $lat]);
         }
         $orderby = $request->input("orderby");
         $model_hotel->selectRaw('IF(`position` IS NOT NULL, `position`, 100000000) `order`');
-        $model_hotel->orderBy('order','asc');
-        switch ($orderby){
+        $model_hotel->orderBy('order', 'asc');
+        switch ($orderby) {
             case "price_low_high":
                 $raw_sql = "CASE WHEN IFNULL( bc_hotels.sale_price, 0 ) > 0 THEN bc_hotels.sale_price ELSE bc_hotels.price END AS tmp_min_price";
                 $model_hotel->selectRaw($raw_sql);
@@ -1076,22 +1107,23 @@ class Hotel extends Bookable
                 $model_hotel->orderBy("review_score", "desc");
                 $model_hotel->orderBy("id", "desc");
         }
-     
-      
+
+
         $model_hotel->groupBy("bc_hotels.id");
 
-        if(!empty($request->query('limit'))){
+        if (!empty($request->query('limit'))) {
             $limit = $request->query('limit');
-        }else{
-            $limit = !empty(setting_item("hotel_page_limit_item"))? setting_item("hotel_page_limit_item") : 9;
+        } else {
+            $limit = !empty(setting_item("hotel_page_limit_item")) ? setting_item("hotel_page_limit_item") : 9;
         }
-        $list = $model_hotel->with(['location','hasWishList','translations','termsByAttributeInListingPage'])->paginate($limit);
+        $list = $model_hotel->with(['location', 'hasWishList', 'translations', 'termsByAttributeInListingPage'])->paginate($limit);
         return $list;
     }
 
-    public function dataForApi($forSingle = false){
+    public function dataForApi($forSingle = false)
+    {
         $data = parent::dataForApi($forSingle);
-        if($forSingle){
+        if ($forSingle) {
             $data['review_score'] = $this->getReviewDataAttribute();
             $data['review_stats'] = $this->getReviewStats();
             $data['review_lists'] = $this->getReviewList();
@@ -1102,13 +1134,13 @@ class Hotel extends Bookable
             $data['allow_full_day'] = $this->allow_full_day;
             $data['booking_fee'] = setting_item_array('hotel_booking_buyer_fees');
             if (!empty($location_id = $this->location_id)) {
-                $related =  parent::query()->where('location_id', $location_id)->where("status", "publish")->take(4)->whereNotIn('id', [$this->id])->with(['location','translations','hasWishList'])->get();
+                $related = parent::query()->where('location_id', $location_id)->where("status", "publish")->take(4)->whereNotIn('id', [$this->id])->with(['location', 'translations', 'hasWishList'])->get();
                 $data['related'] = $related->map(function ($related) {
                         return $related->dataForApi();
                     }) ?? null;
             }
             $data['terms'] = Terms::getTermsByIdForAPI($this->terms->pluck('term_id'));
-        }else{
+        } else {
             $data['review_score'] = $this->getScoreReview();
         }
         return $data;
@@ -1124,29 +1156,29 @@ class Hotel extends Bookable
         $min_max_price = self::getMinMaxPrice();
         return [
             [
-                "title"    => __("Filter Price"),
-                "field"    => "price_range",
+                "title" => __("Filter Price"),
+                "field" => "price_range",
                 "position" => "1",
-                "min_price" => floor ( Currency::convertPrice($min_max_price[0]) ),
-                "max_price" => ceil (Currency::convertPrice($min_max_price[1]) ),
+                "min_price" => floor(Currency::convertPrice($min_max_price[0])),
+                "max_price" => ceil(Currency::convertPrice($min_max_price[1])),
             ],
             [
-                "title"    => __("Hotel Star"),
-                "field"    => "star_rate",
+                "title" => __("Hotel Star"),
+                "field" => "star_rate",
                 "position" => "2",
                 "min" => "1",
                 "max" => "5",
             ],
             [
-                "title"    => __("Review Score"),
-                "field"    => "review_score",
+                "title" => __("Review Score"),
+                "field" => "review_score",
                 "position" => "3",
                 "min" => "1",
                 "max" => "5",
             ],
             [
-                "title"    => __("Attributes"),
-                "field"    => "terms",
+                "title" => __("Attributes"),
+                "field" => "terms",
                 "position" => "4",
                 "data" => Attributes::getAllAttributesForApi("hotel")
             ]

@@ -134,6 +134,7 @@ class Booking extends BaseModel
 
     public function getJsonMeta($key, $default = [])
     {
+
         $meta = $this->getMeta($key, $default);
         if(empty($meta)) return false;
         return json_decode($meta, true);

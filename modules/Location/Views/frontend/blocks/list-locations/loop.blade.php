@@ -10,7 +10,7 @@
         $link_location = $row->getLinkForPageSearch($service_type);
     }
 @endphp
-<div class="{{ $min_height ?? 'min-height-350'}} bg-img-hero rounded-border p-5 gradient-overlay-half-bg-gradient transition-3d-hover shadow-hover-2 border-0 dropdown"
+<div class="{{ $min_height ?? 'min-height-350'}} location-rounded-small bg-img-hero rounded-border p-5 gradient-overlay-half-bg-gradient transition-3d-hover shadow-hover-2 border-0 dropdown"
      style="background-image: url({{$row->getImageUrl()}});">
     <div class="w-100 d-flex justify-content-between mb-2">
         <div class="position-relative">
