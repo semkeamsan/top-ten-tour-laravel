@@ -94,6 +94,7 @@ class HotelController extends Controller
         if (empty($row) or !$row->hasPermissionDetailView()) {
             return redirect('/');
         }
+        // dd($row->map_lat);
         $translation = $row->translateOrOrigin(app()->getLocale());
         $hotel_related = [];
         $location_id = $row->location_id;

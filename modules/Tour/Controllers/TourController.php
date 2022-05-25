@@ -91,6 +91,7 @@
             if ( empty($row) or !$row->hasPermissionDetailView()) {
                 return redirect('/');
             }
+            // dd($row->author);
             $translation = $row->translateOrOrigin(app()->getLocale());
             $tour_related = [];
             $location_id = $row->location_id;

@@ -84,6 +84,7 @@ class CarController extends Controller
         if ( empty($row) or !$row->hasPermissionDetailView()) {
             return redirect('/');
         }
+        // dd($row->author);
         $translation = $row->translateOrOrigin(app()->getLocale());
         $car_related = [];
         $location_id = $row->location_id;

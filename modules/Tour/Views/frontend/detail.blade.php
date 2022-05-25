@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <span class="review">
-                        @if($reviewData['total_review'] > 1)
+                            @if($reviewData['total_review'] > 1)
                                 {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
                             @else
                                 {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}

@@ -918,13 +918,24 @@ class Hotel extends Bookable
     }
 
     public function isDepositEnable()
+
     {
-        return (setting_item('hotel_deposit_enable') and setting_item('hotel_deposit_amount'));
+        if($this->author->vendor_commission_type == null){
+            return (setting_item('hotel_deposit_enable') and setting_item('hotel_deposit_amount'));
+        }
+        if($this->author->vendor_commission_type != 'disable' && $this->author->vendor_commission_amount){
+            return true;
+        }
+        return false;
     }
 
     public function getDepositAmount($vendor_id = null)
     {
         $deposit_amount = setting_item('hotel_deposit_amount');
+        if($this->author->vendor_commission_type != null && $this->author->vendor_commission_amount){
+            $deposit_amount = $this->author->vendor_commission_amount;
+        }
+
         if ($vendor_id) {
             $user = User::query()->select('id', 'vendor_commission_amount', 'vendor_commission_type')->find($vendor_id);
             if ($user) {
@@ -936,6 +947,9 @@ class Hotel extends Bookable
 
     public function getDepositType()
     {
+        if($this->author->vendor_commission_type != null && $this->author->vendor_commission_type){
+            return $this->author->vendor_commission_type;
+        }
         return setting_item('hotel_deposit_type');
     }
 

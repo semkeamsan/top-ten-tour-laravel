@@ -162,6 +162,7 @@
                 return res;
             },
             pay_now_price:function(){
+                console.log(this);
                 if(this.is_deposit_ready){
                     var total_price_depossit = 0;
 

@@ -871,14 +871,36 @@ class Event extends Bookable
     }
 
     public function isDepositEnable(){
-        return (setting_item('event_deposit_enable') and setting_item('event_deposit_amount'));
+
+        if($this->author->vendor_commission_type == null){
+            return (setting_item('event_deposit_enable') and setting_item('event_deposit_amount'));
+        }
+        if($this->author->vendor_commission_type != 'disable' && $this->author->vendor_commission_amount){
+            return true;
+        }
+        return false;
+
     }
+
     public function getDepositAmount(){
-        return setting_item('event_deposit_amount');
+
+        $deposit_amount = setting_item('event_deposit_amount');
+        if($this->author->vendor_commission_type != null && $this->author->vendor_commission_amount){
+            $deposit_amount = $this->author->vendor_commission_amount;
+        }
+        return $deposit_amount;
+
     }
+
     public function getDepositType(){
+
+        if($this->author->vendor_commission_type != null && $this->author->vendor_commission_type){
+            return $this->author->vendor_commission_type;
+        }
         return setting_item('event_deposit_type');
+
     }
+
     public function getDepositFomular(){
         return setting_item('event_deposit_fomular','default');
     }
